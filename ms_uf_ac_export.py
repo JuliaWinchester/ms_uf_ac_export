@@ -81,11 +81,7 @@ def copyright_license_logo_uri(mf):
 
 def citation_instructions(mf):
 	if mf['media_citation_instruction1']:
-		return mf['media_citation_instruction1'] + 
-		" provided access to these data " + mf['media_citation_instruction2'] + 
-		" " + mf['media_citation_instruction3'] + 
-		". The files were downloaded from www.morphosource.org, Duke University."
-
+		return mf['media_citation_instruction1'] + " provided access to these data " + mf['media_citation_instruction2'] + " " + mf['media_citation_instruction3'] + ". The files were downloaded from www.morphosource.org, Duke University."
 
 specimen_uuids = pandas.read_csv('uf_herp_specimen_uuids.csv')
 uuid_list = list(specimen_uuids['uuid'])
@@ -139,7 +135,7 @@ ac = pandas.DataFrame(columns=
 ac_mf = list()
 
 for mf in r:
-		mf_info = blob_to_array(mf['mf.media'])
+	mf_info = blob_to_array(mf['mf.media'])
 
 	# Create media file dict
 	d = {
@@ -176,9 +172,7 @@ for mf in r:
 		'coreid': mf['occurrence_id']
 	}
 
-	p_url = "http://www.morphosource.org/media/morphosource/images/" +
-		mf_info['large']['HASH'] + "/" + 
-		mf_info['large']['FILENAME']
+	p_url = "http://www.morphosource.org/media/morphosource/images/" + mf_info['large']['HASH'] + "/" + mf_info['large']['FILENAME']
 
 	# Create media file preview image dict
 	p = {
