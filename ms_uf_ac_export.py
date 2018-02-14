@@ -132,8 +132,6 @@ ac = pandas.DataFrame(columns=
 	'photoshop:Credit',
 	'coreid']);
 
-ac_mf = list()
-
 for mf in r:
 	mf_info = blob_to_array(mf['mf.media'])
 
@@ -149,7 +147,7 @@ for mf in r:
 		'dcterms:type': 'http://purl.org/dc/dcmitype/Image',
 		'ac:subtypeLiteral': '', # mf['modality'] when implemented
 		'ac:subtype': '', # need to have function to grab this when implemented
-		'ac:accessURI': 'http://www.morphosource.org/index.php/Detail/MediaDetail/Show/media_file_id/' + mf['media_file_id'],
+		'ac:accessURI': 'http://www.morphosource.org/index.php/Detail/MediaDetail/Show/media_file_id/' + str(mf['media_file_id']),
 		'dc:format': mf_info['original']['MIMETYPE'],
 		'ac:subjectPart': mf['mf.element'],
 		'ac:subjectOrientation': mf['mf.side'],
@@ -178,7 +176,7 @@ for mf in r:
 	p = {
 		'dcterms:identifier': p_url, 
 		'ac:associatedSpecimenReference': mf['uuid'],
-		'ac:providerManagedID': mf['media_file_id'] + 'p',
+		'ac:providerManagedID': str(mf['media_file_id']) + 'p',
 		'ac:derivedFrom': d['dcterms:identifier'],
 		'ac:providerLiteral': 'MorphoSource',
 		'ac:provider': 'http://www.morphosource.org',
@@ -209,10 +207,10 @@ for mf in r:
 		'coreid': mf['occurrence_id']
 	}
 
-	ac.append(d)
-	ac.append(p)
+	ac = ac.append(d, ignore_index=True)
+	ac = ac.append(p, ignore_index=True)
 
-ac.to_csv('output.csv')
+ac.to_csv('output.csv', index=False, index_label=False)
 
 
 
