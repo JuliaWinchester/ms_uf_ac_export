@@ -1,5 +1,6 @@
 import pandas
 import phpserialize
+import zlib
 
 class MsMediaFile:
 	'''This class defines a MorphoSource media file object'''
@@ -11,8 +12,8 @@ class MsMediaFile:
 	def __init__(self, db_dict):
 		self.db_dict = db_dict
 		self.mf_info_dict = self.blob_to_array(self.db_dict["mf.media"])
-		self.ac_mf_dict = self.create_ac_mf_dict()
-		self.ac_mfp_dict = self.create_ac_mfp_dict()
+		self.create_ac_mf_dict()
+		self.create_ac_mfp_dict()
 
 	def blob_to_array(self, blob):
 		return phpserialize.unserialize(zlib.decompress(blob))
