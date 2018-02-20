@@ -11,7 +11,7 @@ import pymysql
 import zlib
 
 def db_conn():
-	return pymysql.connect(unix_socket = credentials.db['socket'],
+	return pymysql.connect(host = credentials.db['server'],
 						   user = credentials.db['username'],
 						   password = credentials.db['password'],
 						   db = credentials.db['db'],
