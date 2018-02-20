@@ -134,7 +134,7 @@ class MsMediaFile:
 		}
 
 	def create_ac_mfp_dict(self):
-		p_url = "http://www.morphosource.org/media/morphosource/images/" + self.mf_info_dict['large']['HASH'] + "/" + self.mf_info_dict['large']['FILENAME']
+		p_url = "http://www.morphosource.org/media/morphosource/images/" + self.mf_info_dict['large']['HASH'] + "/" + str(self.mf_info_dict['large']['magic']) + '_' + self.mf_info_dict['large']['FILENAME']
 		self.ac_mfp_dict = {
 			'dcterms:identifier': p_url, 
 			'ac:associatedSpecimenReference': self.db_dict['uuid'],
