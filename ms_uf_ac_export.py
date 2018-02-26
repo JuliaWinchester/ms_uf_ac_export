@@ -69,7 +69,10 @@ ac = pandas.DataFrame(columns=
 	'xmpRights:WebStatement',
 	'ac:licenseLogoURL',
 	'photoshop:Credit',
-	'coreid'])
+	'coreid',
+	'exif:ResolutionUnit',
+	'exif:PixelXDimension',
+	'exif:PixelYDimension'])
 
 for mf_dict in r:
 	mf = ms_media_file.MsMediaFile(mf_dict)

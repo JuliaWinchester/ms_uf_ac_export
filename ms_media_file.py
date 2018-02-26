@@ -98,6 +98,12 @@ class MsMediaFile:
 		if self.db_dict['media_citation_instruction1']:
 			return self.db_dict['media_citation_instruction1'] + " provided access to these data " + self.db_dict['media_citation_instruction2'] + " " + self.db_dict['media_citation_instruction3'] + ". The files were downloaded from www.morphosource.org, Duke University."
 
+	def conv_mmpix_to_pixcm(self, value):
+		try:
+			return 1.0/(float(value)*0.1)
+		except:
+			return None
+
 	def create_ac_mf_dict(self):
 		self.ac_mf_dict = {
 			'dcterms:identifier': self.db_dict['ark'], 
@@ -120,8 +126,8 @@ class MsMediaFile:
 			'dc:creator': self.creator_string(),
 			'ms:scanningTechnician': self.db_dict['scanner_technicians'],
 			'ac:fundingAttribution': self.db_dict['grant_support'],
-			'exif:Xresolution': self.db_dict['scanner_x_resolution'],
-			'exif:Yresolution': self.db_dict['scanner_y_resolution'],
+			'exif:Xresolution': self.conv_mmpix_to_pixcm(self.db_dict['scanner_x_resolution']),
+			'exif:Yresolution': self.conv_mmpix_to_pixcm(self.db_dict['scanner_y_resolution']),
 			'dicom:SpacingBetweenSlices': self.db_dict['scanner_z_resolution'],
 			'dc:rights': self.copyright_permission(),
 			'dcterms:rights': self.copyright_license_uri(),
@@ -130,7 +136,10 @@ class MsMediaFile:
 			'xmpRights:WebStatement': self.copyright_license_uri(),
 			'ac:licenseLogoURL': self.copyright_license_logo_uri(),
 			'photoshop:Credit': self.citation_instructions(),
-			'coreid': self.db_dict['occurrence_id']
+			'coreid': self.db_dict['occurrence_id'],
+			'exif:ResolutionUnit': 3,
+			'ac:PixelXDimension': self.mf_info_dict['original']['WIDTH'],
+			'ac:PixelYDimension': self.mf_info_dict['original']['HEIGHT']
 		}
 
 	def create_ac_mfp_dict(self):
@@ -156,8 +165,8 @@ class MsMediaFile:
 			'dc:creator': self.creator_string(),
 			'ms:scanningTechnician': self.db_dict['scanner_technicians'],
 			'ac:fundingAttribution': self.db_dict['grant_support'],
-			'exif:Xresolution': '',
-			'exif:Yresolution': '',
+			'exif:Xresolution': self.mf_info_dict['large']['PROPERTIES']['resolution']['x']*(1.0/2.54),
+			'exif:Yresolution': self.mf_info_dict['large']['PROPERTIES']['resolution']['y']*(1.0/2.54),
 			'dicom:SpacingBetweenSlices': '',
 			'dc:rights': self.copyright_permission(),
 			'dcterms:rights': self.copyright_license_uri(),
@@ -166,7 +175,10 @@ class MsMediaFile:
 			'xmpRights:WebStatement': self.copyright_license_uri(),
 			'ac:licenseLogoURL': self.copyright_license_logo_uri(),
 			'photoshop:Credit': self.citation_instructions(),
-			'coreid': self.db_dict['occurrence_id']
+			'coreid': self.db_dict['occurrence_id'],
+			'exif:ResolutionUnit': 3,
+			'exif:PixelXDimension': self.mf_info_dict['large']['WIDTH'],
+			'exif:PixelYDimension': self.mf_info_dict['large']['HEIGHT']
 		}
 
 		
