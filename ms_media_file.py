@@ -138,8 +138,8 @@ class MsMediaFile:
 			'photoshop:Credit': self.citation_instructions(),
 			'coreid': self.db_dict['occurrence_id'],
 			'exif:ResolutionUnit': 3,
-			'ac:PixelXDimension': self.mf_info_dict['original']['WIDTH'],
-			'ac:PixelYDimension': self.mf_info_dict['original']['HEIGHT']
+			'exif:PixelXDimension': self.mf_info_dict['original']['WIDTH'],
+			'exif:PixelYDimension': self.mf_info_dict['original']['HEIGHT']
 		}
 
 	def create_ac_mfp_dict(self):
