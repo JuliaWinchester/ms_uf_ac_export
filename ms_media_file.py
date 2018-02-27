@@ -104,13 +104,19 @@ class MsMediaFile:
 		except:
 			return None
 
+	def get_derived_from(self):
+		if self.db_dict['derived_from_media_file_id'] is None:
+			return None
+		else:
+			return 'ark:/87602/m4/M' + str(self.db_dict['derived_from_media_file_id'])
+
 	def create_ac_mf_dict(self):
 		self.ac_mf_dict = {
 			'dcterms:identifier': self.db_dict['ark'], 
 			'ac:associatedSpecimenReference': self.db_dict['uuid'],
 			'coreid': self.db_dict['occurrence_id'],
 			'ac:providerManagedID': self.db_dict['media_file_id'],
-			'ac:derivedFrom': 'ark:/87602/m4/M' + str(self.db_dict['derived_from_media_file_id']),
+			'ac:derivedFrom': self.get_derived_from(),
 			'ac:providerLiteral': 'MorphoSource',
 			'ac:provider': 'https://www.morphosource.org',
 			'dc:type': 'Image',
