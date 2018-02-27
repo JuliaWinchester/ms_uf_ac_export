@@ -165,8 +165,8 @@ class MsMediaFile:
 			'dc:creator': self.creator_string(),
 			'ms:scanningTechnician': self.db_dict['scanner_technicians'],
 			'ac:fundingAttribution': self.db_dict['grant_support'],
-			'exif:Xresolution': self.mf_info_dict['large']['PROPERTIES']['resolution']['x']*(1.0/2.54),
-			'exif:Yresolution': self.mf_info_dict['large']['PROPERTIES']['resolution']['y']*(1.0/2.54),
+			'exif:Xresolution': '',
+			'exif:Yresolution': '',
 			'dicom:SpacingBetweenSlices': '',
 			'dc:rights': self.copyright_permission(),
 			'dcterms:rights': self.copyright_license_uri(),
@@ -176,7 +176,7 @@ class MsMediaFile:
 			'ac:licenseLogoURL': self.copyright_license_logo_uri(),
 			'photoshop:Credit': self.citation_instructions(),
 			'coreid': self.db_dict['occurrence_id'],
-			'exif:ResolutionUnit': 3,
+			'exif:ResolutionUnit': '',
 			'exif:PixelXDimension': self.mf_info_dict['large']['WIDTH'],
 			'exif:PixelYDimension': self.mf_info_dict['large']['HEIGHT']
 		}
