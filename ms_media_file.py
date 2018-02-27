@@ -108,15 +108,16 @@ class MsMediaFile:
 		self.ac_mf_dict = {
 			'dcterms:identifier': self.db_dict['ark'], 
 			'ac:associatedSpecimenReference': self.db_dict['uuid'],
+			'coreid': self.db_dict['occurrence_id'],
 			'ac:providerManagedID': self.db_dict['media_file_id'],
-			'ac:derivedFrom': self.db_dict['derived_from_media_file_id'],
+			'ac:derivedFrom': 'ark:/87602/m4/M' + str(self.db_dict['derived_from_media_file_id']),
 			'ac:providerLiteral': 'MorphoSource',
-			'ac:provider': 'http://www.morphosource.org',
+			'ac:provider': 'https://www.morphosource.org',
 			'dc:type': 'Image',
 			'dcterms:type': 'http://purl.org/dc/dcmitype/Image',
 			'ac:subtypeLiteral': '', # self.db_dict['modality'] when implemented
 			'ac:subtype': '', # need to have function to grab this when implemented
-			'ac:accessURI': 'http://www.morphosource.org/index.php/Detail/MediaDetail/Show/media_file_id/' + str(self.db_dict['media_file_id']),
+			'ac:accessURI': 'https://www.morphosource.org/index.php/Detail/MediaDetail/Show/media_file_id/' + str(self.db_dict['media_file_id']),
 			'dc:format': self.mf_info_dict['original']['MIMETYPE'],
 			'ac:subjectPart': self.get_mf_element(),
 			'ac:subjectOrientation': self.get_mf_side(),
@@ -126,8 +127,11 @@ class MsMediaFile:
 			'dc:creator': self.creator_string(),
 			'ms:scanningTechnician': self.db_dict['scanner_technicians'],
 			'ac:fundingAttribution': self.db_dict['grant_support'],
+			'exif:PixelXDimension': self.mf_info_dict['original']['WIDTH'],
+			'exif:PixelYDimension': self.mf_info_dict['original']['HEIGHT'],
 			'exif:Xresolution': self.conv_mmpix_to_pixcm(self.db_dict['scanner_x_resolution']),
 			'exif:Yresolution': self.conv_mmpix_to_pixcm(self.db_dict['scanner_y_resolution']),
+			'exif:ResolutionUnit': 3,
 			'dicom:SpacingBetweenSlices': self.db_dict['scanner_z_resolution'],
 			'dc:rights': self.copyright_permission(),
 			'dcterms:rights': self.copyright_license_uri(),
@@ -135,22 +139,19 @@ class MsMediaFile:
 			'xmpRights:UsageTerms': self.copyright_license(),
 			'xmpRights:WebStatement': self.copyright_license_uri(),
 			'ac:licenseLogoURL': self.copyright_license_logo_uri(),
-			'photoshop:Credit': self.citation_instructions(),
-			'coreid': self.db_dict['occurrence_id'],
-			'exif:ResolutionUnit': 3,
-			'exif:PixelXDimension': self.mf_info_dict['original']['WIDTH'],
-			'exif:PixelYDimension': self.mf_info_dict['original']['HEIGHT']
+			'photoshop:Credit': self.citation_instructions()
 		}
 
 	def create_ac_mfp_dict(self):
-		p_url = "http://www.morphosource.org/media/morphosource/images/" + self.mf_info_dict['large']['HASH'] + "/" + str(self.mf_info_dict['large']['MAGIC']) + '_' + self.mf_info_dict['large']['FILENAME']
+		p_url = "https://www.morphosource.org/media/morphosource/images/" + self.mf_info_dict['large']['HASH'] + "/" + str(self.mf_info_dict['large']['MAGIC']) + '_' + self.mf_info_dict['large']['FILENAME']
 		self.ac_mfp_dict = {
 			'dcterms:identifier': p_url, 
 			'ac:associatedSpecimenReference': self.db_dict['uuid'],
+			'coreid': self.db_dict['occurrence_id'],
 			'ac:providerManagedID': str(self.db_dict['media_file_id']) + 'p',
 			'ac:derivedFrom': self.ac_mf_dict['dcterms:identifier'],
 			'ac:providerLiteral': 'MorphoSource',
-			'ac:provider': 'http://www.morphosource.org',
+			'ac:provider': 'https://www.morphosource.org',
 			'dc:type': 'StillImage',
 			'dcterms:type': 'http://purl.org/dc/dcmitype/StillImage',
 			'ac:subtypeLiteral': 'Graphic',
@@ -165,8 +166,11 @@ class MsMediaFile:
 			'dc:creator': self.creator_string(),
 			'ms:scanningTechnician': self.db_dict['scanner_technicians'],
 			'ac:fundingAttribution': self.db_dict['grant_support'],
+			'exif:PixelXDimension': self.mf_info_dict['large']['WIDTH'],
+			'exif:PixelYDimension': self.mf_info_dict['large']['HEIGHT'],
 			'exif:Xresolution': '',
 			'exif:Yresolution': '',
+			'exif:ResolutionUnit': '',
 			'dicom:SpacingBetweenSlices': '',
 			'dc:rights': self.copyright_permission(),
 			'dcterms:rights': self.copyright_license_uri(),
@@ -174,11 +178,7 @@ class MsMediaFile:
 			'xmpRights:UsageTerms': self.copyright_license(),
 			'xmpRights:WebStatement': self.copyright_license_uri(),
 			'ac:licenseLogoURL': self.copyright_license_logo_uri(),
-			'photoshop:Credit': self.citation_instructions(),
-			'coreid': self.db_dict['occurrence_id'],
-			'exif:ResolutionUnit': '',
-			'exif:PixelXDimension': self.mf_info_dict['large']['WIDTH'],
-			'exif:PixelYDimension': self.mf_info_dict['large']['HEIGHT']
+			'photoshop:Credit': self.citation_instructions()
 		}
 
 		

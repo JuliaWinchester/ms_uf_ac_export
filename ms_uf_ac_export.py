@@ -41,6 +41,7 @@ r = db_query(c, sql, uuid_list)
 ac = pandas.DataFrame(columns=
 	['dcterms:identifier', 
 	'ac:associatedSpecimenReference',
+	'coreid',
 	'ac:providerManagedID',
 	'ac:derivedFrom',
 	'ac:providerLiteral',
@@ -59,8 +60,11 @@ ac = pandas.DataFrame(columns=
 	'dc:creator',
 	'ms:scanningTechnician',
 	'ac:fundingAttribution',
+	'exif:PixelXDimension',
+	'exif:PixelYDimension',
 	'exif:Xresolution',
 	'exif:Yresolution',
+	'exif:ResolutionUnit',
 	'dicom:SpacingBetweenSlices',
 	'dc:rights',
 	'dcterms:rights',
@@ -68,11 +72,8 @@ ac = pandas.DataFrame(columns=
 	'xmpRights:UsageTerms',
 	'xmpRights:WebStatement',
 	'ac:licenseLogoURL',
-	'photoshop:Credit',
-	'coreid',
-	'exif:ResolutionUnit',
-	'exif:PixelXDimension',
-	'exif:PixelYDimension'])
+	'photoshop:Credit']
+)
 
 for mf_dict in r:
 	mf = ms_media_file.MsMediaFile(mf_dict)
